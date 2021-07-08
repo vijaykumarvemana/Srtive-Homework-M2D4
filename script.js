@@ -28,7 +28,7 @@ const teamNumber = documnet.getElementById("number-team")
 const output = documnet.getElementById("output")
 const button = documnet.getElementById('button-click')
 
-const getInputValue = function(){
+function getInputValue(){
     output.innerHTML = ""
     const members = input.value
     const total = teamNumber.value
@@ -37,7 +37,7 @@ const getInputValue = function(){
     let random = person.sort(() => Math.random() - 0.5)
     console.log(random)
     function split(array , size){
-        if(array.lenth <= size){
+        if(array.length <= size){
             return [array]
         }
         return [array.slice(0, size), ...split(array.slice(size), size)]
