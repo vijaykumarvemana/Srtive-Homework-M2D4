@@ -35,7 +35,7 @@
           
           <button id="decrease" onclick="removeTeam()" class="btn btn-dark">-</button>
           <span id="number-teams"class="mx-2">2</span>
-          <button id="increase"class="btn btn-dark">+</button>
+          <button id="increase" onclick="addTeam()" class="btn btn-dark">+</button>
           
         </div>
       </div>
@@ -83,7 +83,7 @@
       }
       window.onload=function (){
         console.log("loading")
-                createTeams()
+        createTeams()
       }
       const createTeams = function(){
           for(let i = 0; i < numberTeams.innerHTML; i++){
@@ -96,7 +96,7 @@
           }
        
       }
-      const addTeam = function(){
+      function addTeam(){
         const teamNumber = parseInt(numberTeams.innerHTML) + 1
         numberTeams.innerHTML = teamNumber
         teamGroup.innerHTML += `<div class="col-6 col-sm-3 team">
@@ -105,6 +105,7 @@
                         </ul>
                     </div>`
       }
+  
       function removeTeam() {
                 
                 const newTeamsN = parseInt(numberTeams.innerHTML) - 1
