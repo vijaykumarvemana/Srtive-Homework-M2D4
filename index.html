@@ -33,7 +33,7 @@
         <div class="col-12 col-sm-6">
           <span class="mx-1">Numbers of Teams:</span>
           
-          <button id="decrease"class="btn btn-dark">-</button>
+          <button id="decrease" onclick="removeTeam()" class="btn btn-dark">-</button>
           <span id="number-teams"class="mx-2">2</span>
           <button id="increase"class="btn btn-dark">+</button>
           
@@ -59,9 +59,10 @@
   </div>
     <script>
       const inputMember = document.querySelector("#input-member")
+      const listGroup = document.querySelector("#team-list")
       const numberTeams = document.querySelector("#number-teams")
       const teamGroup = document.querySelector("#teams-group")
-      const listGroup = document.querySelector("#team-list")
+      
       const addMember = function(event){
         event.preventDefault()
         const li =document.createElement("li")
@@ -80,6 +81,78 @@
         li.appendChild(cbtn)
         listGroup.appendChild(li)
       }
+      window.onload=function (){
+        console.log("loading")
+                createTeams()
+      }
+      const createTeams = function(){
+          for(let i = 0; i < numberTeams.innerHTML; i++){
+               teamGroup.innerHTML += `<div class="col-6 col-sm-3 team">
+                            <h4>Team ${i + 1}</h4>
+                            <ul class="list-group">
+                            </ul>
+                        </div>
+                         `
+          }
+       
+      }
+      const addTeam = function(){
+        const teamNumber = parseInt(numberTeams.innerHTML) + 1
+        numberTeams.innerHTML = teamNumber
+        teamGroup.innerHTML += `<div class="col-6 col-sm-3 team">
+                        <h4>Team ${teamNumber}</h4>
+                        <ul class="list-group">
+                        </ul>
+                    </div>`
+      }
+      function removeTeam() {
+                
+                const newTeamsN = parseInt(numberTeams.innerHTML) - 1
+                
+                if (newTeamsN < 2) return
+                
+                
+                numberTeams.innerHTML = newTeamsN
+                
+                const teamsList = document.querySelectorAll(".team")
+                const lastTeam = teamsList[teamsList.length - 1]
+                
+                const list = lastTeam.querySelector("ul")
+                                
+                while ( list.children.length !== 0 ) {
+                    listGroup.appendChild(list.children[0])
+                }
+                
+                lastTeam.remove()
+                
+
+            }
+            
+            function assign() {
+                const person = listGroup.children[0]
+                
+                if(!person) return
+                
+                const teams = document.querySelectorAll(".team > ul")
+                const randomIndex = Math.floor(Math.random() * teams.length)
+                
+                teams[randomIndex].appendChild(person)
+                
+                console.log( { person, randomIndex })
+                
+            }
+            
+            function reset() {
+                listGroup.innerHTML = ""
+                
+                teamGroup.innerHTML = ""
+                
+                inputMember.value = ""
+                
+                numberTeams.innerHTML = 2
+                
+                createTeams()
+            }
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
